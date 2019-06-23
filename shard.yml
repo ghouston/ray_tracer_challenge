@@ -1,0 +1,13 @@
+name: ray_tracer_challenge
+version: 0.1.0
+
+authors:
+  - Greg Houston https://github.com/ghouston
+
+targets:
+  ray_tracer_challenge:
+    main: src/ray_tracer_challenge.cr
+
+crystal: 0.29.0
+
+license: MIT
