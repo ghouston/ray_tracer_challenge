@@ -200,4 +200,24 @@ describe "Tuple" do
       v.normalize.magnitude.should eq 1.0
     end
   end
+
+  describe "The dot product of two tuples" do
+    a = Tuple.vector(1, 2, 3)
+    b = Tuple.vector(2, 3, 4)
+    expected = 20.0
+
+    it "is the sum of the corresponding components of each vector" do
+      a.dot(b).should eq expected
+    end
+  end
+
+  describe "The cross product of two vectors" do
+    a = Tuple.vector(1, 2, 3)
+    b = Tuple.vector(2, 3, 4)
+
+    it "gives a vector perpendicular to both vectors" do
+      a.cross(b).should eq Tuple.vector(-1, 2, -1)
+      b.cross(a).should eq Tuple.vector(1, -2, 1)
+    end
+  end
 end

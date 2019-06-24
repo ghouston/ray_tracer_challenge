@@ -1,6 +1,17 @@
-# TODO: Write documentation for `RayTracerChallenge`
+module RayTracerChallenge
+  VERSION = "0.1.0"
 
-struct Tuple
+  module ClassMethods
+    def point(x : Float64, y : Float64, z : Float64)
+      {x, y, z, 1.0}
+    end
+  
+    def vector(x : Float64, y : Float64, z : Float64)
+      {x, y, z, 0.0}
+    end
+  end
+
+  # for now, everything is implemented as extensions to the Tuple class.
   def point?
     size == 4 && w == 1.0
   end
@@ -23,14 +34,6 @@ struct Tuple
 
   def w
     self[3]
-  end
-
-  def self.point(x : Float64, y : Float64, z : Float64)
-    {x, y, z, 1.0}
-  end
-
-  def self.vector(x : Float64, y : Float64, z : Float64)
-    {x, y, z, 0.0}
   end
 
   # note: probably needs to be a macro to allow different sized tuples.
@@ -88,24 +91,28 @@ struct Tuple
   def normalize
     self.div(self.magnitude)
   end
+
+  def dot(other : Tuple(Float64, Float64, Float64, Float64))
+    self.x * other.x +
+    self.y * other.y +
+    self.z * other.z +
+    self.w * other.w
+  end
+
+  def cross(other : Tuple(Float64, Float64, Float64, Float64))
+    Tuple.vector(
+      self.y * other.z - self.z * other.y,
+      self.z * other.x - self.x * other.z,
+      self.x * other.y - self.y * other.x
+    )
+  end 
 end
 
-module RayTracerChallenge
-  VERSION = "0.1.0"
-  EPSILON = 0.000001
-
-  struct Tuple
-    property x, y, z, w
-
-    def initialize(@x : Float64, @y : Float64, @z : Float64, @w : Float64)
-    end
-
-    def point?
-      return @w < (1.0 + EPSILON) && @w > (1.0 - EPSILON)
-    end
-
-    def vector?
-      return @w < (0.0 + EPSILON) && @w > (0.0 - EPSILON)
-    end
-  end
+struct Tuple
+  # Crystal notes: #extend inserts into the meta-type ancestor chain
+  # and thus it is used to add class methods. #include inserts into
+  # the type hierarchy, adding instance methods.
+  # ref: https://github.com/crystal-lang/crystal/issues/5082
+  extend RayTracerChallenge::ClassMethods
+  include RayTracerChallenge
 end
