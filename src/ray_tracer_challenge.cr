@@ -1,3 +1,4 @@
+require "./ray_tracer_challenge/canvas.cr"
 require "./ray_tracer_challenge/color.cr"
 require "./ray_tracer_challenge/point.cr"
 require "./ray_tracer_challenge/tuple_math.cr"

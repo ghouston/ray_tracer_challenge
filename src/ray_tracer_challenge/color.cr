@@ -1,3 +1,5 @@
+alias Color = Tuple(Float64, Float64, Float64)
+
 module RayTracerChallenge
   module Color
     module ClassMethods
