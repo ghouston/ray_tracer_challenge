@@ -1,8 +1,8 @@
 module RayTracerChallenge
   module Color
     module ClassMethods
-      def color(red : Float64, green : Float64, blue : Float64)
-        {red, green, blue}
+      def color(red, green, blue)
+        {red.to_f, green.to_f, blue.to_f}
       end
     end
 
@@ -22,7 +22,7 @@ module RayTracerChallenge
       self[2]
     end
 
-    def add(other : Tuple(Float64, Float64, Float64))
+    def add(other : Tuple(T, T, T)) forall T
       {
         self.red + other.red,
         self.green + other.green,
@@ -30,7 +30,7 @@ module RayTracerChallenge
       }
     end
 
-    def sub(other : Tuple(Float64, Float64, Float64))
+    def sub(other : Tuple(T, T, T)) forall T
       {
         self.red - other.red,
         self.green - other.green,
@@ -38,13 +38,16 @@ module RayTracerChallenge
       }
     end
 
-    # TODO: how to make #mul that works with vectors and colors?
-    def color_mul(scalar : Float64)
+    def hadamard_product(other : Tuple(T, T, T)) forall T
       {
-        self.red * scalar,
-        self.green * scalar,
-        self.blue * scalar,
+        self.red * other.red,
+        self.green * other.green,
+        self.blue * other.blue,
       }
+    end
+
+    def mul(other : Tuple(T, T, T)) forall T
+      hadamard_product(other)
     end
   end
 end

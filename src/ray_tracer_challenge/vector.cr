@@ -1,8 +1,8 @@
 module RayTracerChallenge
   module Vector
     module ClassMethods
-      def vector(x : Float64, y : Float64, z : Float64)
-        {x, y, z, 0.0}
+      def vector(x, y, z)
+        {x.to_f, y.to_f, z.to_f, 0.0}
       end
     end
 
@@ -18,14 +18,14 @@ module RayTracerChallenge
       self.div(self.magnitude)
     end
 
-    def dot(other : Tuple(Float64, Float64, Float64, Float64))
+    def dot(other : Tuple(T, T, T, T)) forall T
       self.x * other.x +
         self.y * other.y +
         self.z * other.z +
         self.w * other.w
     end
 
-    def cross(other : Tuple(Float64, Float64, Float64, Float64))
+    def cross(other : Tuple(T, T, T, T)) forall T
       Tuple.vector(
         self.y * other.z - self.z * other.y,
         self.z * other.x - self.x * other.z,

@@ -15,6 +15,7 @@ struct Tuple
   # the type hierarchy, adding instance methods.
   # ref: https://github.com/crystal-lang/crystal/issues/5082
 
+  extend RayTracerChallenge::TupleMath::ClassMethods
   include RayTracerChallenge::TupleMath
 
   extend RayTracerChallenge::Point::ClassMethods

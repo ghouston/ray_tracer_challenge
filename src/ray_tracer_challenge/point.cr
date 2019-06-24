@@ -4,8 +4,8 @@ module RayTracerChallenge
     #       contains methods related to Point operations.
 
     module ClassMethods
-      def point(x : Float64, y : Float64, z : Float64)
-        {x, y, z, 1.0}
+      def point(x, y, z)
+        {x.to_f, y.to_f, z.to_f, 1.0}
       end
     end
 

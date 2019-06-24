@@ -33,9 +33,21 @@ describe "Color Tuple" do
 
   describe "Multiply a color by a scalar" do
     c = Tuple.color(0.2, 0.3, 0.4)
+    scalar = 2
+    expected = Tuple.color(0.4, 0.6, 0.8)
 
     it "multiplies each elemet" do
-      c.color_mul(2).should eq_color Tuple.color(0.4, 0.6, 0.8)
+      c.mul(scalar).should eq_color expected
+    end
+  end
+
+  describe "Multiple colors" do
+    c1 = Tuple.color(1, 0.2, 0.4)
+    c2 = Tuple.color(0.9, 1, 0.1)
+    expected = Tuple.color(0.9, 0.2, 0.04)
+
+    it "multiples each element" do
+      c1.mul(c2).should eq_color expected
     end
   end
 end
