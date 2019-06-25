@@ -9,7 +9,7 @@ describe "Canvas" do
       c.width.should eq width
       c.height.should eq height
 
-      expected = Tuple.color(0, 0, 0)
+      expected = Color.new(0, 0, 0)
 
       (0...height).each do |y|
         (0...width).each do |x|

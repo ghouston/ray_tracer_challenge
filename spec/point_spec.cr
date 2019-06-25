@@ -1,8 +1,8 @@
 require "./spec_helper"
 
-describe "Point Tuple" do
+describe "Point struct" do
   describe "A tuple with w=1.0 is a point" do
-    a = {4.3, -4.2, 3.1, 1}
+    a = {4.3, -4.2, 3.1}.to_point
 
     it "#{a} should pass" do
       a.x.should eq 4.3
@@ -14,12 +14,12 @@ describe "Point Tuple" do
     end
   end
 
-  describe "Tuple.point() creates tuuples with w = 1.0" do
-    p = Tuple.point(4, -4, 3)
+  describe ".to_tuple returns tuples with w = 1.0" do
+    p = Point.new(4, -4, 3)
     expected = {4, -4, 3, 1}
 
     it "is #{expected}" do
-      p.should eq expected
+      p.to_tuple.should eq expected
     end
   end
 end

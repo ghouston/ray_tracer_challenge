@@ -1,16 +1,19 @@
-module RayTracerChallenge
-  module Point
-    # note: TupleMath is included in Tuple and it
-    #       contains methods related to Point operations.
+struct Tuple
+  def to_point
+    RayTracerChallenge::Point.new(self[0], self[1], self[2])
+  end
+end
 
-    module ClassMethods
-      def point(x, y, z)
-        {x.to_f, y.to_f, z.to_f, 1.0}
-      end
-    end
+module RayTracerChallenge
+  struct Point < Common
+    @w = 1.0
 
     def point?
-      size == 4 && w == 1.0
+      true
+    end
+
+    def to_tuple
+      {x, y, z, w}
     end
   end
 end

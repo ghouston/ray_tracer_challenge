@@ -1,6 +1,8 @@
 require "spec"
 require "../src/ray_tracer_challenge"
 
+include RayTracerChallenge
+
 module Spec
   # :nodoc:
   struct EqColorExpectation(T)

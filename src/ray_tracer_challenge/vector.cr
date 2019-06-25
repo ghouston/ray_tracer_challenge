@@ -1,36 +1,41 @@
 module RayTracerChallenge
-  module Vector
-    module ClassMethods
-      def vector(x, y, z)
-        {x.to_f, y.to_f, z.to_f, 0.0}
-      end
+  struct Vector < Common
+    @w = 0.0
+
+    def cross(other : Vector)
+      Vector.new(
+        y * other.z - z * other.y,
+        z * other.x - x * other.z,
+        x * other.y - y * other.x
+      )
     end
 
-    def vector?
-      size == 4 && w == 0.0
+    def dot(other : Vector)
+      x * other.x +
+        y * other.y +
+        z * other.z
     end
 
     def magnitude
-      (self.x**2 + self.y**2 + self.z**2 + self.w**2)**0.5
+      (x**2 + y**2 + z**2 + w**2)**0.5
     end
 
     def normalize
-      self.div(self.magnitude)
+      div(magnitude)
     end
 
-    def dot(other : Tuple(T, T, T, T)) forall T
-      self.x * other.x +
-        self.y * other.y +
-        self.z * other.z +
-        self.w * other.w
+    def to_tuple
+      {x, y, z, w}
     end
 
-    def cross(other : Tuple(T, T, T, T)) forall T
-      Tuple.vector(
-        self.y * other.z - self.z * other.y,
-        self.z * other.x - self.x * other.z,
-        self.x * other.y - self.y * other.x
-      )
+    def vector?
+      true
     end
+  end
+end
+
+struct Tuple
+  def to_vector
+    RayTracerChallenge::Vector.new(self[0], self[1], self[2])
   end
 end
