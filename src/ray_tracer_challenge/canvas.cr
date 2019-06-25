@@ -26,5 +26,10 @@ module RayTracerChallenge
         end
       end
     end
+
+    def write(x, y, color)
+      i = y * @width + x
+      @canvas[i] = color
+    end
   end
 end
