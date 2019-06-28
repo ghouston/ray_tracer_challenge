@@ -1,9 +1,3 @@
-struct Tuple
-  def to_color
-    Color.new(self[0], self[1], self[2])
-  end
-end
-
 module RayTracerChallenge
   struct Color
     getter red : Float64, green : Float64, blue : Float64

@@ -15,15 +15,27 @@ module RayTracerChallenge
     end
 
     def at(x, y)
-      i = y * @width + x
+      i = y * width + x
       @canvas[i]
     end
 
-    def each(&block)
-      (0...@height).each do |y|
-        (0...@width).each do |x|
-          yield x, y, at(x, y)
+    def each_index(&block)
+      (0...height).each do |y|
+        (0...width).each do |x|
+          yield x, y
         end
+      end
+    end
+
+    def each(&block)
+      each_index do |x, y|
+        yield at(x, y)
+      end
+    end
+
+    def each_with_index(&block)
+      each_index do |x, y|
+        yield x, y, at(x, y)
       end
     end
 

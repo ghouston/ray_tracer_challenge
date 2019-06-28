@@ -36,7 +36,7 @@ describe "Color struct" do
     scalar = 2
     expected = Color.new(0.4, 0.6, 0.8)
 
-    it "multiplies each elemet" do
+    it "multiplies each element" do
       c.mul(scalar).should eq_color expected
     end
   end

@@ -33,9 +33,3 @@ module RayTracerChallenge
     end
   end
 end
-
-struct Tuple
-  def to_vector
-    RayTracerChallenge::Vector.new(self[0], self[1], self[2])
-  end
-end

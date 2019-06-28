@@ -8,6 +8,11 @@ targets:
   ray_tracer_challenge:
     main: src/ray_tracer_challenge.cr
 
+development_dependencies:
+  ameba:
+    github: veelenga/ameba
+    version: ~> 0.10.0
+    
 crystal: 0.29.0
 
 license: MIT
