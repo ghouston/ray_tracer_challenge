@@ -46,7 +46,7 @@ describe "Float64 extensions" do
     it "converts % value to int 0-255" do
       0.0.to_color_255.should eq 0
       1.0.to_color_255.should eq 255
-      0.5.to_color_255.should eq 127
+      0.5.to_color_255.should eq 128
 
       1.5.to_color_255.should eq 255
       -0.5.to_color_255.should eq 0

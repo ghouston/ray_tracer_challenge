@@ -28,4 +28,22 @@ describe "Canvas" do
       c.at(2, 3).should eq_color red
     end
   end
+
+  describe "creating a canvas with initial color" do
+    width = 10
+    height = 20
+    c = Canvas.new(width, height, Color.new(0.5, 0.25, 0.125))
+    it "inits all pixels to color" do
+      c.width.should eq width
+      c.height.should eq height
+
+      expected = Color.new(0.5, 0.25, 0.125)
+
+      (0...height).each do |y|
+        (0...width).each do |x|
+          c.at(x, y).should eq_color expected
+        end
+      end
+    end
+  end
 end

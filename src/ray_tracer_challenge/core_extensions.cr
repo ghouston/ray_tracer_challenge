@@ -24,6 +24,6 @@ struct Float64
   end
 
   def to_color_255
-    (clamp(1.0, 0.0) * 255).to_i
+    (clamp(1.0, 0.0) * 255).round.to_i
   end
 end
