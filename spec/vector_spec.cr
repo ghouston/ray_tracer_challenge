@@ -23,6 +23,28 @@ describe "Vector struct" do
     end
   end
 
+  describe "Adding two vectors" do
+    v1 = {3.0, -2.0, 5.0}.to_vector
+    v2 = {-2.0, 3.0, 1.0}.to_vector
+    expected = {1.0, 1.0, 6.0}.to_vector
+
+    it "adds each element, returns a vector" do
+      v1.add(v2).should eq expected
+      typeof(v1.add(v2)).should eq Vector
+    end
+  end
+
+  describe "Adding vector and point" do
+    v1 = {3.0, -2.0, 5.0}.to_vector
+    p2 = {-2.0, 3.0, 1.0}.to_point
+    expected = {1.0, 1.0, 6.0}.to_point
+
+    it "adds each element, returns a point" do
+      v1.add(p2).should eq expected
+      typeof(v1.add(p2)).should eq Point
+    end
+  end
+
   describe "Subtracting two vectors" do
     v1 = Vector.new(3, 2, 1)
     v2 = Vector.new(5, 6, 7)
@@ -30,6 +52,7 @@ describe "Vector struct" do
 
     it "returns a vector" do
       v1.sub(v2).should eq expected
+      typeof(v1.sub(v2)).should eq Vector
     end
   end
 
@@ -40,6 +63,18 @@ describe "Vector struct" do
 
     it "returns a negated vector" do
       zero.sub(v).should eq expected
+      typeof(zero.sub(v)).should eq Vector
+    end
+  end
+
+  describe "Subtracting a point from a vector" do
+    p = Vector.new(3, 2, 1)
+    v = Point.new(5, 6, 7)
+    expected = Point.new(2, 4, 6)
+
+    it "returns another point" do
+      v.sub(p).should eq expected
+      typeof(v.sub(p)).should eq Point
     end
   end
 

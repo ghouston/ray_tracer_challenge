@@ -16,14 +16,6 @@ module RayTracerChallenge
       self.class.new(-x, -y, -z)
     end
 
-    def add(other : Common)
-      if vector? && other.vector?
-        Vector.new(x + other.x, y + other.y, z + other.z)
-      else
-        Point.new(x + other.x, y + other.y, z + other.z)
-      end
-    end
-
     def point?
       false
     end
@@ -34,15 +26,6 @@ module RayTracerChallenge
 
     def mul(scalar)
       self.class.new(x * scalar, y * scalar, z * scalar)
-    end
-
-    def sub(other : Common)
-      if vector? && other.vector? ||
-         point? && other.point?
-        Vector.new(x - other.x, y - other.y, z - other.z)
-      else
-        Point.new(x - other.x, y - other.y, z - other.z)
-      end
     end
 
     def div(scalar)
