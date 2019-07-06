@@ -2,7 +2,7 @@
 
 Gregory N. Houston
 
-To practice using Crystal language, I've started the Ray Tracer Challenge.  I dont know if I will finish it.
+To learn and practice using Crystal language, I've started the Ray Tracer Challenge (book by Pragmatic Pub).  Feedback is welcome.
 
 ## Installation
 
@@ -10,11 +10,14 @@ TODO: Write installation instructions here
 
 ## Usage
 
-Work In Progress: just the specs run for now.
+Work In Progress:
+* Chapter 1 complete and execrises finished. (merged into master)
+* Chapter 2 complete, exercise not started. (merged into master)
+* Chapter 3 started. (ch3 branch)
 
 ## Development
 
-Design: for the moment I am using Crystal's Tuple for this challenge.
+TODO: Write about development experience.
 
 ## Contributing
 
