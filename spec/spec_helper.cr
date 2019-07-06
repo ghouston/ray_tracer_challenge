@@ -12,9 +12,9 @@ module Spec
 
     def match(actual_value)
       actual_value.color? &&
-        (actual_value.red - @expected_value.red).abs <= @delta &&
-        (actual_value.green - @expected_value.green).abs <= @delta &&
-        (actual_value.blue - @expected_value.blue).abs <= @delta
+        actual_value.red.equivalent(@expected_value.red) &&
+        actual_value.green.equivalent(@expected_value.green) &&
+        actual_value.blue.equivalent(@expected_value.blue)
     end
 
     def failure_message(actual_value)

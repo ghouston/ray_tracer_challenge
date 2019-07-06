@@ -52,4 +52,20 @@ describe "Float64 extensions" do
       -0.5.to_color_255.should eq 0
     end
   end
+  describe "#equivalent" do
+    it "compares floats as matching when they are very very close" do
+      a = 1.0
+      b = a + Float64::EPSILON
+      c = a + Float64::EPSILON + Float64::EPSILON
+
+      (a == b).should be_false
+      a.equivalent(b).should be_true
+      a.equivalent(c).should be_false
+
+      m = 1.23456789012345 # see Float64::DIGITS
+      n = 1.23456789012344
+
+      m.equivalent(n).should be_false
+    end
+  end
 end

@@ -25,5 +25,17 @@ module RayTracerChallenge
     def height
       width
     end
+
+    def ==(other : SquareMatrix)
+      return false if width != other.width
+
+      @matrix.each_with_index do |row, y|
+        row.each_with_index do |cell, x|
+          return false unless other.at(x, y).equivalent(at(x, y))
+        end
+      end
+
+      true
+    end
   end
 end
