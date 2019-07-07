@@ -140,4 +140,26 @@ describe "Matrix 4x4" do
       a.mul(b).should eq expected
     end
   end
+
+  describe "multiplication by identity matrix" do
+    a = SquareMatrix.new(4,
+      0, 1, 2, 4,
+      1, 2, 4, 8,
+      2, 4, 8, 16,
+      4, 8, 16, 32)
+
+    it "results in matrix with the same values" do
+      result = a.mul(SquareMatrix.identity)
+      result.should eq a
+      result.should_not be(a)
+    end
+  end
+
+  describe "multiplication of identity matrix by a tuple" do
+    t = {1, 2, 3, 4}
+
+    it "results in tuple with the same values" do
+      SquareMatrix.identity.mul(t).should eq t
+    end
+  end
 end

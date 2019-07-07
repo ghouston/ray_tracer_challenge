@@ -14,6 +14,14 @@ module RayTracerChallenge
       end
     end
 
+    def self.identity
+      SquareMatrix.new(4,
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1)
+    end
+
     def at(row : Int32, col : Int32)
       @matrix[row][col]
     end
