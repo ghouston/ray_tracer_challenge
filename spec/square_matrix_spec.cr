@@ -51,12 +51,12 @@ describe "Matrix 4x4" do
     a = SquareMatrix.new(4,
       1, 2, 3, 4,
       5, 6, 7, 8,
-      9, 8, 8, 6,
+      9, 8, 7, 6,
       5, 4, 3, 2)
     b = SquareMatrix.new(4,
       1, 2, 3, 4,
       5, 6, 7, 8,
-      9, 8, 8, 6,
+      9, 8, 7, 6,
       5, 4, 3, 2)
     c = SquareMatrix.new(4,
       2, 3, 4, 5,
@@ -88,6 +88,56 @@ describe "Matrix 4x4" do
     it "a and b compare as not equal" do
       (a == b).should be_false
       (b == a).should be_false
+    end
+  end
+
+  describe "multiplication of two matricies" do
+    a = SquareMatrix.new(4,
+      1, 2, 3, 4,
+      5, 6, 7, 8,
+      9, 8, 7, 6,
+      5, 4, 3, 2)
+    b = SquareMatrix.new(4,
+      -2, 1, 2, 3,
+      3, 2, 1, -1,
+      4, 3, 6, 5,
+      1, 2, 7, 8)
+
+    it "results in this matrix" do
+      expected = SquareMatrix.new(4,
+        20, 22, 50, 48,
+        44, 54, 114, 108,
+        40, 58, 110, 102,
+        16, 26, 46, 42)
+      a.mul(b).should eq expected
+    end
+  end
+
+  describe "multiplication of a matrix by a point" do
+    a = SquareMatrix.new(4,
+      1, 2, 3, 4,
+      2, 4, 4, 2,
+      8, 6, 4, 1,
+      0, 0, 0, 1)
+    b = {1, 2, 3}.to_point
+    expected = Point.new(18, 24, 33)
+
+    it "results in a point" do
+      a.mul(b).should eq expected
+    end
+  end
+
+  describe "multiplication of a matrix by a tuple" do
+    a = SquareMatrix.new(4,
+      1, 2, 3, 4,
+      2, 4, 4, 2,
+      8, 6, 4, 1,
+      0, 0, 0, 1)
+    b = {1, 2, 3, 1}
+    expected = Tuple.new(18, 24, 33, 1)
+
+    it "results in a point" do
+      a.mul(b).should eq expected
     end
   end
 end
