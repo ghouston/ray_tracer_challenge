@@ -92,7 +92,27 @@ module RayTracerChallenge
       result = SquareMatrix.new(4)
       (0...width).each do |row|
         (0...width).each do |col|
-          result.write(col,row, at(row,col))
+          result.write(col, row, at(row, col))
+        end
+      end
+      result
+    end
+
+    def determinant
+      raise ArgumentError.new("I only know how to find determinant of 2x2 matrix") unless width == 2
+
+      at(0, 0) * at(1, 1) - at(0, 1) * at(1, 0)
+    end
+
+    def submatrix(row, col)
+      result = SquareMatrix.new(width - 1)
+      (0...width).each do |source_row|
+        next if source_row == row
+        target_row = (source_row > row) ? source_row - 1 : source_row
+        (0...width).each do |source_col|
+          next if source_col == col
+          target_col = (source_col > col) ? source_col - 1 : source_col
+          result.write(target_row, target_col, at(source_row, source_col))
         end
       end
       result

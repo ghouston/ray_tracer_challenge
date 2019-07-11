@@ -164,18 +164,18 @@ describe "Matrix 4x4" do
   end
 
   describe "transposing a matrix" do
-    a = SquareMatrix.new(4, 
+    a = SquareMatrix.new(4,
       1, 2, 3, 4,
       5, 6, 7, 8,
       9, 10, 11, 12,
       13, 14, 15, 16)
-    
+
     it "turns rows into columns" do
       expected = SquareMatrix.new(4,
-      1, 5, 9, 13,
-      2, 6, 10, 14,
-      3, 7, 11, 15,
-      4, 8, 12, 16)
+        1, 5, 9, 13,
+        2, 6, 10, 14,
+        3, 7, 11, 15,
+        4, 8, 12, 16)
 
       a.transpose.should eq expected
     end
@@ -186,6 +186,48 @@ describe "Matrix 4x4" do
 
     it "results in an identity matrix" do
       a.transpose.should eq SquareMatrix.identity
+    end
+  end
+
+  describe "determinant of a 2x2 matrix" do
+    a = SquareMatrix.new(2,
+      1, 5,
+      -3, 2)
+
+    it "should" do
+      a.determinant.should eq 17.0
+    end
+  end
+
+  describe "a submatrix of a 3x3 matrix is a 2x2 matrix" do
+    a = SquareMatrix.new(3,
+      1, 5, 0,
+      -3, 2, 7,
+      0, 6, -3)
+
+    it "skips the given row and col" do
+      expected = SquareMatrix.new(2,
+        -3, 2,
+        0, 6)
+
+      a.submatrix(0, 2).should eq expected
+    end
+  end
+
+  describe "a submatrix of a 4x4 matrix is a 3x3 matrix" do
+    a = SquareMatrix.new(4,
+      -6, 1, 1, 6,
+      -8, 5, 8, 6,
+      -1, 0, 8, 2,
+      -7, 1, -1, 1)
+
+    it "removes the given row and col" do
+      expected = SquareMatrix.new(3,
+        -6, 1, 6,
+        -8, 8, 6,
+        -7, -1, 1)
+
+      a.submatrix(2, 1).should eq expected
     end
   end
 end
