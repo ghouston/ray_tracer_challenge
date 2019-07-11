@@ -162,4 +162,30 @@ describe "Matrix 4x4" do
       SquareMatrix.identity.mul(t).should eq t
     end
   end
+
+  describe "transposing a matrix" do
+    a = SquareMatrix.new(4, 
+      1, 2, 3, 4,
+      5, 6, 7, 8,
+      9, 10, 11, 12,
+      13, 14, 15, 16)
+    
+    it "turns rows into columns" do
+      expected = SquareMatrix.new(4,
+      1, 5, 9, 13,
+      2, 6, 10, 14,
+      3, 7, 11, 15,
+      4, 8, 12, 16)
+
+      a.transpose.should eq expected
+    end
+  end
+
+  describe "transposing the identity matrix" do
+    a = SquareMatrix.identity
+
+    it "results in an identity matrix" do
+      a.transpose.should eq SquareMatrix.identity
+    end
+  end
 end

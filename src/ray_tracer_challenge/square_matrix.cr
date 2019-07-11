@@ -87,5 +87,15 @@ module RayTracerChallenge
       result = mul(point.to_tuple)
       Point.new(result[0], result[1], result[2])
     end
+
+    def transpose
+      result = SquareMatrix.new(4)
+      (0...width).each do |row|
+        (0...width).each do |col|
+          result.write(col,row, at(row,col))
+        end
+      end
+      result
+    end
   end
 end

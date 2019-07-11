@@ -11,7 +11,7 @@ TODO: Write installation instructions here
 ## Usage
 
 Work In Progress:
-* Chapter 1 complete and execrises finished. (merged into master)
+* Chapter 1 complete and exercises finished. (merged into master)
 * Chapter 2 complete, exercise not started. (merged into master)
 * Chapter 3 started. (ch3 branch)
 
