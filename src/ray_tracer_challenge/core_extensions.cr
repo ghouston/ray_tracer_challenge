@@ -27,9 +27,9 @@ struct Float64
     (clamp(1.0, 0.0) * 255).round.to_i
   end
 
-  def equivalent(other : Float64)
+  def equivalent(other : Float64, delta = Float64::EPSILON)
     # for a better solution see https://www.floating-point-gui.de/errors/comparison/
     # but for this project a simple comparison with EPSILON is good enough.
-    (self - other).abs <= Float64::EPSILON
+    (self - other).abs <= delta
   end
 end

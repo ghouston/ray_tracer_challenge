@@ -99,9 +99,23 @@ module RayTracerChallenge
     end
 
     def determinant
-      raise ArgumentError.new("I only know how to find determinant of 2x2 matrix") unless width == 2
+      if width == 2
+        determinant_2_x_2
+      else
+        determinant_n_x_n
+      end
+    end
 
+    private def determinant_2_x_2
       at(0, 0) * at(1, 1) - at(0, 1) * at(1, 0)
+    end
+
+    private def determinant_n_x_n
+      result = 0.0
+      (0...width).each do |col|
+        result = result + at(0, col)*cofactor(0, col)
+      end
+      result
     end
 
     def submatrix(row, col)
@@ -113,6 +127,34 @@ module RayTracerChallenge
           next if source_col == col
           target_col = (source_col > col) ? source_col - 1 : source_col
           result.write(target_row, target_col, at(source_row, source_col))
+        end
+      end
+      result
+    end
+
+    def minor(row, col)
+      submatrix(row, col).determinant
+    end
+
+    def cofactor(row, col)
+      if (row + col).even?
+        minor(row, col)
+      else
+        -minor(row, col)
+      end
+    end
+
+    def invertable?
+      determinant != 0
+    end
+
+    def inverse
+      d = determinant
+      raise ArgumentError.new("cant invert this matrix, determinant == 0") if d == 0
+      result = SquareMatrix.new(width)
+      (0...width).each do |row|
+        (0...width).each do |col|
+          result.write(col, row, cofactor(row, col)/d)
         end
       end
       result

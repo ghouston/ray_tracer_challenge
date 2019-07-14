@@ -109,7 +109,7 @@ describe "Matrix 4x4" do
         44, 54, 114, 108,
         40, 58, 110, 102,
         16, 26, 46, 42)
-      a.mul(b).should eq expected
+      a.mul(b).should eq_matrix expected
     end
   end
 
@@ -150,7 +150,7 @@ describe "Matrix 4x4" do
 
     it "results in matrix with the same values" do
       result = a.mul(SquareMatrix.identity)
-      result.should eq a
+      result.should eq_matrix a
       result.should_not be(a)
     end
   end
@@ -177,7 +177,7 @@ describe "Matrix 4x4" do
         3, 7, 11, 15,
         4, 8, 12, 16)
 
-      a.transpose.should eq expected
+      a.transpose.should eq_matrix expected
     end
   end
 
@@ -185,7 +185,7 @@ describe "Matrix 4x4" do
     a = SquareMatrix.identity
 
     it "results in an identity matrix" do
-      a.transpose.should eq SquareMatrix.identity
+      a.transpose.should eq_matrix SquareMatrix.identity
     end
   end
 
@@ -210,7 +210,7 @@ describe "Matrix 4x4" do
         -3, 2,
         0, 6)
 
-      a.submatrix(0, 2).should eq expected
+      a.submatrix(0, 2).should eq_matrix expected
     end
   end
 
@@ -227,7 +227,174 @@ describe "Matrix 4x4" do
         -8, 8, 6,
         -7, -1, 1)
 
-      a.submatrix(2, 1).should eq expected
+      a.submatrix(2, 1).should eq_matrix expected
+    end
+  end
+
+  describe "calculating a minor of a 3x3 matrix" do
+    a = SquareMatrix.new(3,
+      3, 5, 0,
+      2, -1, -7,
+      6, -1, 5)
+
+    it "follows these caluculations" do
+      b = a.submatrix(1, 0)
+      b.determinant.should eq 25
+      a.minor(1, 0).should eq 25
+    end
+  end
+
+  describe "compute the cofactor of a 3x3 matrix" do
+    a = SquareMatrix.new(3,
+      3, 5, 0,
+      2, -1, -7,
+      6, -1, 5)
+
+    it "is == minor if row+col is an even number" do
+      a.minor(0, 0).should eq -12
+      a.cofactor(0, 0).should eq -12
+    end
+
+    it "is -minor if row+col is an odd number" do
+      a.minor(1, 0).should eq 25
+      a.cofactor(1, 0).should eq -25
+    end
+  end
+
+  describe "calc the determinant of a 3x3 matrix" do
+    a = SquareMatrix.new(3,
+      1, 2, 6,
+      -5, 8, -4,
+      2, 6, 4)
+
+    it "sums (elements x cofactor) for a single row or column" do
+      a.cofactor(0, 0).should eq 56
+      a.cofactor(0, 1).should eq 12
+      a.cofactor(0, 2).should eq -46
+      a.determinant.should eq -196 # eg. 56*1 + 12*6 + -46*6
+    end
+  end
+
+  describe "calc the determinant of a 4x4 matrix" do
+    a = SquareMatrix.new(4,
+      -2, -8, 3, 5,
+      -3, 1, 7, 3,
+      1, 2, -9, 6,
+      -6, 7, 7, -9)
+
+    it "sums (elements x cofactor) for a single row or column" do
+      a.cofactor(0, 0).should eq 690
+      a.cofactor(0, 1).should eq 447
+      a.cofactor(0, 2).should eq 210
+      a.cofactor(0, 3).should eq 51
+      a.determinant.should eq -4071
+    end
+  end
+
+  describe "testing invertability of a matrix" do
+    describe "for an invertable matrix" do
+      a = SquareMatrix.new(4,
+        6, 4, 4, 4,
+        5, 5, 7, 6,
+        4, -9, 3, -7,
+        9, 1, 7, -6)
+
+      it "is invertable because the determinant is not zero" do
+        a.determinant.should eq -2120
+        a.invertable?.should be_true
+      end
+    end
+
+    describe "for a noninvertable matrix" do
+      a = SquareMatrix.new(4,
+        -4, 2, -2, -3,
+        9, 6, 2, 6,
+        0, -5, 1, -5,
+        0, 0, 0, 0)
+
+      it "is not invertable because the determinant is zero" do
+        a.determinant.should eq 0
+        a.invertable?.should be_false
+      end
+    end
+  end
+
+  describe "calculate the inverse of a matrix" do
+    a = SquareMatrix.new(4,
+      -5, 2, 6, -8,
+      1, -5, 1, 8,
+      7, 7, -6, -7,
+      1, -3, 7, 4)
+
+    it "finds cofactor/determinant of each element transposed around the diagnal" do
+      b = a.inverse
+      a.determinant.should eq 532
+      a.cofactor(2, 3).should eq -160
+      b.at(3, 2).should eq -160.0/532.0
+      a.cofactor(3, 2).should eq 105
+      b.at(2, 3).should eq 105.0/532.0
+
+      d = a.determinant
+      expected = SquareMatrix.new(4,
+        116/d, 240/d, 128/d, -24/d,
+        -430/d, -775/d, -236/d, 277/d,
+        -42/d, -119/d, -28/d, 105/d,
+        -278/d, -433/d, -160/d, 163/d)
+      b.should eq_matrix expected
+    end
+  end
+
+  describe "calculate the inverse of a second matrix" do
+    a = SquareMatrix.new(4,
+      8, -5, 9, 2,
+      7, 5, 6, 1,
+      -6, 0, 9, 6,
+      -3, 0, -9, -4)
+
+    it "results in" do
+      d = a.determinant
+      expected = SquareMatrix.new(4,
+        90/d, 90/d, 165/d, 315/d,
+        45/d, -72/d, -15/d, -18/d,
+        -210/d, -210/d, -255/d, -540/d,
+        405/d, 405/d, 450/d, 1125/d)
+      a.inverse.should eq_matrix expected
+    end
+  end
+
+  describe "calculate the inverse of a third matrix" do
+    a = SquareMatrix.new(4,
+      9, 3, 0, 9,
+      -5, -2, -6, -3,
+      -4, 9, 6, 4,
+      -7, 6, 6, 2)
+
+    it "results in" do
+      d = a.determinant
+      expected = SquareMatrix.new(4,
+        -66/d, -126/d, 234/d, -360/d,
+        -126/d, 54/d, 594/d, -540/d,
+        -47/d, -237/d, -177/d, 210/d,
+        288/d, 108/d, -432/d, 540/d)
+      a.inverse.should eq_matrix expected
+    end
+  end
+
+  describe "multiply a product by its inverse" do
+    a = SquareMatrix.new(4,
+      3, -9, 7, 3,
+      3, -8, 2, -9,
+      -4, 4, 4, 1,
+      -6, 5, -1, 1)
+    b = SquareMatrix.new(4,
+      8, 2, 2, 2,
+      3, -1, 7, 0,
+      7, 0, 5, 4,
+      6, -2, 0, 5)
+    c = a.mul(b)
+
+    it "returns the original matrix" do
+      c.mul(b.inverse).should eq_matrix a, delta: 1.0e-14
     end
   end
 end
