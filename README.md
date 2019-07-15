@@ -11,9 +11,18 @@ TODO: Write installation instructions here
 ## Usage
 
 Work In Progress:
-* Chapter 1 complete and exercises finished. (merged into master)
-* Chapter 2 complete, exercise not started. (merged into master)
-* Chapter 3 started. (ch3 branch)
+* Chapter 1 complete, merged into master
+  * scope: Point, Vector
+  * exercise simulates a projectile, writes report to STDOUT
+  * crystal run src/exercises/ch1.cr
+* Chapter 2 complete, merged into master
+  * scope: Color, Canvas, PpmWriter
+  * exercise simulates a projectile, writes ppm format file
+  * crystal run src/exercises/ch2.cr -- <file_path.ppm> # defaults to ch2.ppm
+* Chapter 3 complete, merged into master
+  * scope: SquareMatrix
+  * no exercise
+* Chapter 4 TODO.
 
 ## Development
 
