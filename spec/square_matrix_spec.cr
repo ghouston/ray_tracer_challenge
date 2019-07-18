@@ -136,7 +136,21 @@ describe "Matrix 4x4" do
     b = {1, 2, 3, 1}
     expected = Tuple.new(18, 24, 33, 1)
 
-    it "results in a point" do
+    it "results in a tuple" do
+      a.mul(b).should eq expected
+    end
+  end
+
+  describe "multiplication of a matrix by a vector" do
+    a = SquareMatrix.new(4,
+      1, 2, 3, 4,
+      2, 4, 4, 2,
+      8, 6, 4, 1,
+      0, 0, 0, 1)
+    b = {1, 2, 3}.to_vector
+    expected = Vector.new(14, 22, 32)
+
+    it "results in a vector" do
       a.mul(b).should eq expected
     end
   end

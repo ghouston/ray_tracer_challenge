@@ -1,5 +1,9 @@
+require "./transform"
+
 module RayTracerChallenge
   class SquareMatrix
+    extend RayTracerChallenge::Transform
+
     @matrix : Array(Array(Float64))
     getter width : Int32
 
@@ -86,6 +90,11 @@ module RayTracerChallenge
     def mul(point : Point)
       result = mul(point.to_tuple)
       Point.new(result[0], result[1], result[2])
+    end
+
+    def mul(vector : Vector)
+      result = mul(vector.to_tuple)
+      Vector.new(result[0], result[1], result[2])
     end
 
     def transpose
