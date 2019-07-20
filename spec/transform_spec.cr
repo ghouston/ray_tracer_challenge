@@ -110,3 +110,67 @@ describe "rotating a point around the z axis" do
     full_quarter.mul(point).should eq_point expected_full, delta: 1e-15
   end
 end
+
+describe "a skew transformation" do
+  point = {2, 3, 4}.to_point
+
+  it "moves x in proportion to y" do
+    transform = SquareMatrix.skew(1, 0, 0, 0, 0, 0)
+    transform.mul(point).should eq Point.new(5, 3, 4)
+  end
+
+  it "moves x in proportion to z" do
+    transform = SquareMatrix.skew(0, 1, 0, 0, 0, 0)
+    transform.mul(point).should eq Point.new(6, 3, 4)
+  end
+
+  it "moves y in proportion to x" do
+    transform = SquareMatrix.skew(0, 0, 1, 0, 0, 0)
+    transform.mul(point).should eq Point.new(2, 5, 4)
+  end
+
+  it "moves y in proportion to z" do
+    transform = SquareMatrix.skew(0, 0, 0, 1, 0, 0)
+    transform.mul(point).should eq Point.new(2, 7, 4)
+  end
+
+  it "moves z in proportion to x" do
+    transform = SquareMatrix.skew(0, 0, 0, 0, 1, 0)
+    transform.mul(point).should eq Point.new(2, 3, 6)
+  end
+
+  it "moves z in proportion to y" do
+    transform = SquareMatrix.skew(0, 0, 0, 0, 0, 1)
+    transform.mul(point).should eq Point.new(2, 3, 7)
+  end
+end
+
+describe "chaining transforms" do
+  point = {1, 0, 1}.to_point
+  rotation = (Math::PI/2).rotation_x
+  scaling = SquareMatrix.scaling(5, 5, 5)
+  translation = SquareMatrix.translation(10, 5, 7)
+
+  it "applies in a specific order" do
+    point2 = rotation.mul(point)
+    point2.should eq_point Point.new(1, -1, 0), 1e-15
+
+    point3 = scaling.mul(point2)
+    point3.should eq_point Point.new(5, -5, 0), 1e-15
+
+    point4 = translation.mul(point3)
+    point4.should eq_point Point.new(15, 0, 7), 1e-15
+  end
+end
+
+describe "fluent chaining transforms" do
+  point = {1, 0, 1}.to_point
+
+  it "applies in specific order" do
+    transform = SquareMatrix.identity
+      .rotate_x(Math::PI/2)
+      .scale(5, 5, 5)
+      .translate(10, 5, 7)
+    transform.mul(point).should eq_point Point.new(15, 0, 7), 1e-15
+  end
+end
