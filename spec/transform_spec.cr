@@ -1,4 +1,5 @@
 require "./spec_helper.cr"
+require "math"
 
 describe "multiply a point by a translation matrix" do
   transform = SquareMatrix.translation(5, -3, 2)
@@ -68,5 +69,44 @@ describe "reflection is scaling by a negative value" do
 
   it "expands the point away from the origin" do
     transform.mul(point).should eq expected
+  end
+end
+
+describe "rotating a point around the x axis" do
+  point = {0, 1, 0}.to_point
+  half_quarter = (Math::PI/4).rotation_x
+  full_quarter = (Math::PI/2.0).rotation_x
+  expected_half = {0, Math.sqrt(2)/2, Math.sqrt(2)/2}.to_point
+  expected_full = {0, 0, 1}.to_point
+
+  it "moves using left-hand rule" do
+    half_quarter.mul(point).should eq_point expected_half, delta: 1e-15
+    full_quarter.mul(point).should eq_point expected_full, delta: 1e-15
+  end
+end
+
+describe "rotating a point around the y axis" do
+  point = {0, 0, 1}.to_point
+  half_quarter = (Math::PI/4).rotation_y
+  full_quarter = (Math::PI/2.0).rotation_y
+  expected_half = {Math.sqrt(2)/2, 0, Math.sqrt(2)/2}.to_point
+  expected_full = {1, 0, 0}.to_point
+
+  it "moves using left-hand rule" do
+    half_quarter.mul(point).should eq_point expected_half, delta: 1e-15
+    full_quarter.mul(point).should eq_point expected_full, delta: 1e-15
+  end
+end
+
+describe "rotating a point around the z axis" do
+  point = {0, 1, 0}.to_point
+  half_quarter = (Math::PI/4).rotation_z
+  full_quarter = (Math::PI/2.0).rotation_z
+  expected_half = {-Math.sqrt(2)/2, Math.sqrt(2)/2, 0}.to_point
+  expected_full = {-1, 0, 0}.to_point
+
+  it "moves using left-hand rule" do
+    half_quarter.mul(point).should eq_point expected_half, delta: 1e-15
+    full_quarter.mul(point).should eq_point expected_full, delta: 1e-15
   end
 end

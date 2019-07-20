@@ -2,7 +2,8 @@ require "./transform"
 
 module RayTracerChallenge
   class SquareMatrix
-    extend RayTracerChallenge::Transform
+    extend Transform::Extensions
+    include Transform::Includes
 
     @matrix : Array(Array(Float64))
     getter width : Int32

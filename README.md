@@ -22,7 +22,7 @@ Work In Progress:
 * Chapter 3 complete, merged into master
   * scope: SquareMatrix
   * no exercise
-* Chapter 4 TODO.
+* Chapter 4 wip.
 
 ## Development
 

@@ -1,3 +1,5 @@
+require "./transform.cr"
+
 struct Tuple
   def to_color
     Color.new(self[0], self[1], self[2])
@@ -13,6 +15,8 @@ struct Tuple
 end
 
 struct Float64
+  include RayTracerChallenge::Transform::CoreExtensions::Float64
+
   def clamp(max, min)
     if self > max
       max
