@@ -22,7 +22,10 @@ Work In Progress:
 * Chapter 3 complete, merged into master
   * scope: SquareMatrix
   * no exercise
-* Chapter 4 wip.
+* Chapter 4 complete, merged into master
+  * scope: Matrix transforms: translation, scaling, rotation, skew.  Fluent chaining of transformations.
+  * exercise: todo.
+* Chapter 5 wip.
 
 ## Development
 
