@@ -10,27 +10,16 @@ describe "An intersection" do
   end
 end
 
-describe "Aggregating intersections" do
-  s = Sphere.new
-  i1 = Intersection.new(1, s)
-  i2 = Intersection.new(2, s)
-  xs = Intersections.new(i1, i2)
-
-  it "collects multiple intersection objects" do
-    xs.size.should eq 2
-    xs[0].t.should eq 1
-    xs[1].t.should eq 2
-  end
-end
-
-describe "Ray#intersect returns Intersections" do
-  r = Ray.new({0, 0, -5}.to_point, {0, 0, 1}.to_vector)
-  s = Sphere.new
-  xs = r.intersects(s)
-
-  it "sets the object on the intersection" do
-    xs.size.should eq 2
-    xs[0].object.should eq s
-    xs[1].object.should eq s
+describe "#<=>" do
+  i1 = Intersection.new(1, Sphere.new)
+  i2 = Intersection.new(2, Sphere.new)
+  i2b = Intersection.new(2, Sphere.new)
+  i3 = Intersection.new(-3, Sphere.new)
+  it " compares t values" do
+    (i1 <=> i2).should eq -1
+    (i2 <=> i1).should eq 1
+    (i2 <=> i2b).should eq 0
+    (i3 <=> i2).should eq -1
+    (i2 <=> i3).should eq 1
   end
 end
