@@ -29,8 +29,8 @@ describe "a ray intersecting a sphere in the middle" do
   it "intersects at two points" do
     result = ray.intersects(sphere)
     result.size.should eq 2
-    result[0].should eq 4.0
-    result[1].should eq 6.0
+    result[0].t.should eq 4.0
+    result[1].t.should eq 6.0
   end
 end
 
@@ -41,8 +41,8 @@ describe "a ray intersecting a sphere at a tangent" do
   it "intersects at two points, which are the same" do
     result = ray.intersects(sphere)
     result.size.should eq 2
-    result[0].should eq 5.0
-    result[1].should eq 5.0
+    result[0].t.should eq 5.0
+    result[1].t.should eq 5.0
   end
 end
 
@@ -63,8 +63,8 @@ describe "a ray staring inside a sphere" do
   it "intersects at two points, one is behind the ray origin" do
     result = ray.intersects(sphere)
     result.size.should eq 2
-    result[0].should eq -1.0
-    result[1].should eq 1.0
+    result[0].t.should eq -1.0
+    result[1].t.should eq 1.0
   end
 end
 
@@ -75,7 +75,7 @@ describe "a sphere behind the ray" do
   it "intersects at two points behind the ray origin" do
     result = ray.intersects(sphere)
     result.size.should eq 2
-    result[0].should eq -6.0
-    result[1].should eq -4.0
+    result[0].t.should eq -6.0
+    result[1].t.should eq -4.0
   end
 end

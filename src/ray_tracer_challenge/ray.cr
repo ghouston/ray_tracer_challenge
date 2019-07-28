@@ -17,11 +17,14 @@ module RayTracerChallenge
       discriminant = (b * b) - (4.0 * a * c)
 
       if discriminant < 0.0
-        result = [] of Float64
+        result = Intersections.new
       else
         t1 = (-b - Math.sqrt(discriminant)) / (2.0 * a)
         t2 = (-b + Math.sqrt(discriminant)) / (2.0 * a)
-        result = [t1, t2]
+        result = Intersections.new(
+          Intersection.new(t1, sphere),
+          Intersection.new(t2, sphere)
+        )
       end
       result
     end
