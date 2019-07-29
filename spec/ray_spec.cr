@@ -79,3 +79,59 @@ describe "a sphere behind the ray" do
     result[1].t.should eq -4.0
   end
 end
+
+describe "translate a ray" do
+  r = Ray.new({1, 2, 3}.to_point, {0, 1, 0}.to_vector)
+  m = SquareMatrix.translation(3, 4, 5)
+  r2 = r.transform(m)
+
+  it "gives a new ray with origin moved" do
+    r2.origin.should eq ({4, 6, 8}.to_point)
+    r2.direction.should eq ({0, 1, 0}.to_vector)
+    r2.should_not be(r)
+  end
+
+  it "doesn't change the original ray" do
+    r.origin.should eq ({1, 2, 3}.to_point)
+    r.direction.should eq ({0, 1, 0}.to_vector)
+  end
+end
+
+describe "scaling a ray" do
+  r = Ray.new({1, 2, 3}.to_point, {0, 1, 0}.to_vector)
+  m = SquareMatrix.scaling(2, 3, 4)
+  r2 = r.transform(m)
+
+  it "gives a new ray with origin and direction scaled" do
+    r2.origin.should eq ({2, 6, 12}.to_point)
+    r2.direction.should eq ({0, 3, 0}.to_vector)
+    r2.should_not be(r)
+  end
+
+  it "doesn't change the original ray" do
+    r.origin.should eq ({1, 2, 3}.to_point)
+    r.direction.should eq ({0, 1, 0}.to_vector)
+  end
+end
+
+describe "intersect a scaled sphere with a ray" do
+  r = Ray.new({0, 0, -5}.to_point, {0, 0, 1}.to_vector)
+  s = Sphere.new(SquareMatrix.scaling(2, 2, 2))
+  xs = r.intersects(s)
+
+  it "transforms the ray before calculating the intersections" do
+    xs.size.should eq 2
+    xs[0].t.should eq 3
+    xs[1].t.should eq 7
+  end
+end
+
+describe "intersect a translated sphere with a ray" do
+  r = Ray.new({0, 0, -5}.to_point, {0, 0, 1}.to_vector)
+  s = Sphere.new(SquareMatrix.translation(5, 0, 0))
+  xs = r.intersects(s)
+
+  it "transforms the ray before calculating the intersections" do
+    xs.size.should eq 0
+  end
+end

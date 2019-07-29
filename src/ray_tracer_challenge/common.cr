@@ -1,5 +1,3 @@
-RTC = RayTracerChallenge
-
 module RayTracerChallenge
   # Common code shared by Point and Vector
   abstract struct Common

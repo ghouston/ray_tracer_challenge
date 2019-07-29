@@ -10,6 +10,11 @@ module RayTracerChallenge
     end
 
     def intersects(sphere : Sphere)
+      camera_ray = transform(sphere.transform.inverse)
+      camera_ray.calculate_intersects(sphere)
+    end
+
+    def calculate_intersects(sphere : Sphere)
       sphere_to_ray = origin.sub({0, 0, 0}.to_point)
       a = direction.dot(direction)
       b = 2.0 * direction.dot(sphere_to_ray)
@@ -27,6 +32,12 @@ module RayTracerChallenge
         )
       end
       result
+    end
+
+    def transform(matrix : SquareMatrix)
+      new_origin = matrix.mul(origin)
+      new_direction = matrix.mul(direction)
+      Ray.new(new_origin, new_direction)
     end
   end
 end
