@@ -11,8 +11,12 @@ module RayTracerChallenge
       end
 
       # continuation fiber that feeds @sub_pixel_channel
+      #
+      #  Note: since PPM files start at the top left,
+      #  the sub_pixel_streamer uses Canvas#flipped_each_with_index
+      #  so that the canvas is streamed top to bottom.
       def sub_pixel_streamer
-        @canvas.each_with_index do |x, y, pixel|
+        @canvas.flipped_each_with_index do |x, y, pixel|
           @sub_pixel_channel.send(SubPixel.new(x, y, RGB::Red, pixel.red.to_color_255))
           @sub_pixel_channel.send(SubPixel.new(x, y, RGB::Green, pixel.green.to_color_255))
           @sub_pixel_channel.send(SubPixel.new(x, y, RGB::Blue, pixel.blue.to_color_255))

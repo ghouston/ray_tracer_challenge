@@ -36,7 +36,7 @@ module RayTracerChallenge
     end
 
     def to_row_col(i)
-      [i / width, i % width]
+      [i // width, i % width]
     end
 
     def height

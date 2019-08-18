@@ -34,7 +34,8 @@ Work In Progress:
   * no exercise
 * Chapter 4
   * scope: Matrix transforms: translation, scaling, rotation, skew.  Fluent chaining of transformations.
-  * exercise: TODO.
+  * exercise: draws a very simple clock face, 12 white dots in a circle
+  * crystal run src/exercises/ch4.cr -- <file_path.ppm> #defaults to ch4.ppm
 * Chapter 5
   * scope: Ray, Intersections, Sphere
   * exercise: TODO.

@@ -22,7 +22,7 @@ module RayTracerChallenge
     end
 
     def at(x, y)
-      i = y * width + x
+      i = index_for(x, y)
       @canvas[i]
     end
 
@@ -46,9 +46,30 @@ module RayTracerChallenge
       end
     end
 
+    # yields |x, y, value| however, iterates the y from max down to 0
+    #
+    # similar to each_with_index, however the y axis order is reversed.
+    def flipped_each_with_index(&block)
+      flipped_each_index do |x, y|
+        yield x, y, at(x, y)
+      end
+    end
+
+    def flipped_each_index(&block)
+      (height - 1).downto(0).each do |y|
+        (0...width).each do |x|
+          yield x, y
+        end
+      end
+    end
+
     def write(x, y, color)
-      i = y * @width + x
+      i = index_for(x, y)
       @canvas[i] = color
+    end
+
+    private def index_for(x, y)
+      y.to_i * @width + x.to_i
     end
   end
 end
