@@ -31,7 +31,7 @@ describe "SubPixelStream" do
     sub_pixel_stream = SubPixelStream.new(canvas)
 
     it "receives 4 red green blue parts" do
-      canvas.each_index do |x, y|
+      canvas.flipped_each_index do |x, y|
         sub_pixel_stream.more?.should be_true
         sub_pixel = sub_pixel_stream.receive
         sub_pixel.should eq SubPixel.new(x, y, RGB::Red, 128)

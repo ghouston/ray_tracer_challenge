@@ -68,9 +68,9 @@ describe "PpmWriter" do
       stream.next.should eq "P3\n"
       stream.next.should eq "5 3\n"
       stream.next.should eq "255\n"
-      stream.next.should eq "255 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
-      stream.next.should eq "0 0 0 0 0 0 0 128 0 0 0 0 0 0 0\n"
       stream.next.should eq "0 0 0 0 0 0 0 0 0 0 0 0 0 0 255\n"
+      stream.next.should eq "0 0 0 0 0 0 0 128 0 0 0 0 0 0 0\n"
+      stream.next.should eq "255 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
       stream.next.should eq "\n"
       stream.next.should eq Iterator::Stop::INSTANCE
     end
