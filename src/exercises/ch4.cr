@@ -14,7 +14,7 @@ module Chapter4
     end
 
     def draw_clock
-      white = Color.new(255, 255, 255)
+      white = Color.new(1, 1, 1)
 
       origin = {0, 0, 0}.to_point
 

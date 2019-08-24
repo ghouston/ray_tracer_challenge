@@ -38,7 +38,8 @@ Work In Progress:
   * crystal run src/exercises/ch4.cr -- <file_path.ppm> #defaults to ch4.ppm
 * Chapter 5
   * scope: Ray, Intersections, Sphere
-  * exercise: TODO.
+  * exercise: raycasts a sphere, and several variations after transforming the sphere
+  * crystal run src/exercises/ch5.cr -- <output_directory> #defaults to "."
 * Chapter 6 - 16
   * TODO.
 

@@ -21,7 +21,7 @@ module Chapter2
     def run
       file_path = ARGV[0]? || "ch2.ppm"
 
-      white = Color.new(255, 255, 255)
+      white = Color.new(1, 1, 1)
 
       done = false
       while !done
