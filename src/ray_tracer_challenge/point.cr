@@ -1,6 +1,11 @@
 module RayTracerChallenge
   struct Point < Common
     @w = 1.0
+    @@origin = Point.new(0, 0, 0)
+
+    def self.origin
+      @@origin
+    end
 
     def point?
       true

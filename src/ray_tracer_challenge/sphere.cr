@@ -12,5 +12,9 @@ module RayTracerChallenge
       @transform = transform
       @inverse_transform = transform.inverse
     end
+
+    def normal_at(surface_point : Point)
+      surface_point.sub(Point.origin).normalize
+    end
   end
 end
