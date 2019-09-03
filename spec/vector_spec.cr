@@ -161,4 +161,24 @@ describe "Vector struct" do
       b.cross(a).should eq Vector.new(1, -2, 1)
     end
   end
+
+  describe "Reflecting a vector approaching at 45degrees" do
+    v = Vector.new(1, -1, 0)
+    normal = Vector.new(0, 1, 0)
+
+    it "bounces at the same angle" do
+      r = v.reflect(normal)
+      r.should eq Vector.new(1, 1, 0)
+    end
+  end
+
+  describe "Reflecting a vector off a slanted surface" do
+    v = Vector.new(0, -1, 0)
+    normal = Vector.new(Math.sqrt(2)/2, Math.sqrt(2)/2, 0)
+
+    it "bounces with the same angle to the normal" do
+      r = v.reflect(normal)
+      r.should eq_vector Vector.new(1, 0, 0)
+    end
+  end
 end

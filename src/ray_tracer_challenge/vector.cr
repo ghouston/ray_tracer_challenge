@@ -40,6 +40,10 @@ module RayTracerChallenge
       div(magnitude)
     end
 
+    def reflect(normal : Vector)
+      self.sub(normal.mul(2 * self.dot(normal)))
+    end
+
     def to_tuple
       {x, y, z, w}
     end
