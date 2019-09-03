@@ -14,7 +14,11 @@ module RayTracerChallenge
     end
 
     def normal_at(surface_point : Point)
-      surface_point.sub(Point.origin).normalize
+      object_point = @inverse_transform.mul(surface_point)
+      object_normal = object_point.sub(Point.origin)
+      world_normal = @inverse_transform.transpose.mul(object_normal)
+      world_normal.ensure_vector
+      world_normal.normalize
     end
   end
 end

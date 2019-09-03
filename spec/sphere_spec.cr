@@ -62,16 +62,16 @@ describe "computing the normal on a translated sphere" do
 
   it "is not impacted by the translation" do
     n = s.normal_at({0, 1.70711, -0.70711}.to_point)
-    n.should eq Vector.new(0, 0.70711, -0.70711)
+    n.should eq_vector Vector.new(0, 0.70711, -0.70711), 0.00001
   end
 end
 
 describe "computing the normal on a transformed sphere" do
-  s = Sphere.new(SquareMatrix.identity.scale(1, 0.5, 1).rotate_z(Math::PI/5))
+  s = Sphere.new(SquareMatrix.identity.rotate_z(Math::PI/5).scale(1, 0.5, 1))
 
   it "is not impacted by the translation" do
     y = z = Math.sqrt(2)/2
-    n = s.normal_at({0, y, z}.to_point)
-    n.should eq Vector.new(0, 0.97014, -0.24254)
+    n = s.normal_at({0, y, -z}.to_point)
+    n.should eq_vector Vector.new(0, 0.97014, -0.24254), 0.00001
   end
 end

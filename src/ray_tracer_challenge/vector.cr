@@ -47,5 +47,9 @@ module RayTracerChallenge
     def vector?
       true
     end
+
+    def ensure_vector
+      @w = 0.0
+    end
   end
 end

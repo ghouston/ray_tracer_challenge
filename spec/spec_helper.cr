@@ -49,6 +49,29 @@ module Spec
     end
   end
 
+  struct EqVectorExpectation(Vector)
+    def initialize(@expected_value : Vector, @delta : Float64)
+    end
+
+    def match(actual_value)
+      return false unless actual_value.x.equivalent(@expected_value.x, @delta)
+      return false unless actual_value.y.equivalent(@expected_value.y, @delta)
+      actual_value.z.equivalent(@expected_value.z, @delta)
+    end
+
+    def failure_message(actual_value)
+      "Expected: #{@expected_value}\n" +
+        "     got: #{actual_value}\n" +
+        "didn't match within delta of #{@delta}"
+    end
+
+    def negative_failure_message(actual_value)
+      "Expected: #{@expected_value}\n" +
+        "     got: #{actual_value}\n" +
+        "should not match within delta of #{@delta}"
+    end
+  end
+
   struct EqMatrixExpectation(T)
     def initialize(@expected_value : T, @delta : Float64)
       @row = 0
@@ -88,6 +111,10 @@ module Spec
 
     def eq_point(value, delta = Float64::EPSILON)
       Spec::EqPointExpectation.new value, delta
+    end
+
+    def eq_vector(value, delta = Float64::EPSILON)
+      Spec::EqVectorExpectation.new value, delta
     end
   end
 end
